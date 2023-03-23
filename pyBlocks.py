@@ -1,4 +1,3 @@
-# import necessary libraries
 import hashlib  # for hashing sha 256
 import json  # for JSON encoding
 import time  # for timestamping
@@ -60,11 +59,13 @@ def create_blockchain(num_blocks):
     return blockchain
 
 # function to print out the entire blockchain to txt file 
-def print_blockchain_to_file(blockchain):
-    with open('blockchain.txt', 'w') as f:
+def save_blockchain_to_file(blockchain):
+    with open('blockchain.txt', 'a') as f:
         f.write("Blockchain:\n")
         for block in blockchain:
             f.write(str(block))
+            f.write("\n") # add a new line after each block
+
 
 # visualize the blockchain with index, data, and hash values
 def visualize_blockchain(blockchain):
@@ -72,7 +73,9 @@ def visualize_blockchain(blockchain):
     for block in blockchain:
         print("Index:", block.index)
         print("Data:", block.data)
+        print("Previous Hash:", block.previous_hash)
         print("Hash:", block.hash_block())
+        print()
         if block.index < len(blockchain) - 1:
             print("↓")  # indicate the next block in the blockchain
         else:
@@ -80,8 +83,6 @@ def visualize_blockchain(blockchain):
 
 
 blockchain = create_blockchain(10)
-print_blockchain_to_file(blockchain)
+save_blockchain_to_file(blockchain)
 
-vB = visualize_blockchain(blockchain)
-print(vB)
-
+visualize_blockchain(blockchain)
